@@ -1,0 +1,40 @@
+{
+  "entities": {
+    "userProfile": {
+      "title": "User Profile",
+      "description": "Information about the user that Sitara can remember, including name, nickname, and custom preferences",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The user's unique identifier" },
+        "creatorName": { "type": "string", "description": "The name of the user/creator, typically Abhimanyu" },
+        "assistantName": { "type": "string", "description": "The name of his AI companion, typically Sitara" },
+        "preferences": { "type": "string", "description": "Custom preferences and memories that Sitara has saved about Abhimanyu" },
+        "updatedAt": { "type": "string", "format": "date-time", "description": "When the profile was last updated" }
+      },
+      "required": ["uid", "creatorName", "assistantName", "updatedAt"]
+    },
+    "chatMessage": {
+      "title": "Chat Message",
+      "description": "A single chat message between the user and Sitara",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique message ID" },
+        "sender": { "type": "string", "enum": ["user", "sitara"], "description": "Sender of the message" },
+        "text": { "type": "string", "description": "Text content of the message" },
+        "timestamp": { "type": "string", "format": "date-time", "description": "Time when the message was sent" },
+        "uid": { "type": "string", "description": "UID of the owner" }
+      },
+      "required": ["id", "sender", "text", "timestamp", "uid"]
+    }
+  },
+  "firestore": {
+    "/profiles/{uid}": {
+      "schema": "userProfile",
+      "description": "User profile with their settings"
+    },
+    "/profiles/{uid}/messages/{messageId}": {
+      "schema": "chatMessage",
+      "description": "Chat messages between the user and Sitara"
+    }
+  }
+}
